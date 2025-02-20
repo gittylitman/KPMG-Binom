@@ -15,9 +15,9 @@ jobs:
         tflint_version: v0.50.0
 
     - name: 🔵 Init TFLint
-      run: tflint --config ../.tflint.hcl --init 
+      run: tflint --config ./.tflint.hcl --init 
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
     - name: 💄 Run TFLint
-      run: tflint  --config ../.tflint.hcl -f compact
+      run: tflint  --config ./.tflint.hcl -f compact
