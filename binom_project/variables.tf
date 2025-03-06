@@ -18,6 +18,11 @@ variable "region" {
   default = "me-west1"
 }
 
+variable "region_cloud_functions" {
+  type = string
+  default = "us-central1"
+}
+
 # network module
 
 variable "vpc_name" {
