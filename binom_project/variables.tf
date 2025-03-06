@@ -184,6 +184,6 @@ variable "subnet_proxy_name" {
 
 variable "ip_range" {
   type = string
-  default = "100.69.1.112/26"
+  default = "100.70.0.112/26"
 }
 
