@@ -37,7 +37,7 @@ variable "subnet_name" {
 
 variable "ip_cidr_range" {
   type = string
-  default = "100.69.0.112/28"
+  default = "100.69.3.0/28"
 }
 
 # windows vm module
@@ -184,6 +184,6 @@ variable "subnet_proxy_name" {
 
 variable "ip_range" {
   type = string
-  default = "100.70.0.112/26"
+  default = "100.69.4.0/26"
 }
 
