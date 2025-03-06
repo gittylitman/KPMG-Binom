@@ -57,7 +57,7 @@ resource "google_compute_region_ssl_certificate" "ca_cert" {
 }
 
 resource "google_compute_subnetwork" "proxy_subnet" {
-  name          = var.subnet_name
+  name          = var.subnet_proxy_name
   region        = var.region
   ip_cidr_range = var.ip_range
   purpose       = "REGIONAL_MANAGED_PROXY"
