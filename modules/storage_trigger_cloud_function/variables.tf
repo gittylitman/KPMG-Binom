@@ -16,6 +16,7 @@ variable "automation_function_entry_point" {
 
 variable "event_type" {
   type = string
+  default = "google.storage.object.finalize"
 }
 
 variable "bucket_id" {

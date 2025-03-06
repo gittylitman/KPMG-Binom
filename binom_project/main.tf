@@ -38,3 +38,57 @@ module "firestore" {
   location = var.region
   table_name = var.tables_name
 }
+
+module "cloud_storages" {
+  source = "../modules/cloud_storage"
+  name = var.cloud_storage_names[count.index]
+  location = var.region
+  count = length(var.cloud_storage_names)
+}
+
+module "object" {
+  source = "../modules/bucket_object"
+  bucket_name = module.cloud_storages[0].bucket_name
+  bucket_object_name = var.bucket_object_names[count.index]
+  bucket_storage_source = var.bucket_object_sources[count.index]
+  count  = length(var.bucket_object_names)
+}
+
+module "https_trigger_cloud_run" {
+  source = "../modules/https_trigger_cloud_function"
+  region = var.region
+  runtime = var.runtime
+  cloud_function_https_name = var.cloud_function_https_names[count.index]
+  https_function_entry_point = var.https_function_entry_points[count.index]
+  bucket_name = module.cloud_storages[0].bucket_name
+  bucket_object_name = module.object[count.index].bucket_object_name
+  count   =   length(var.cloud_function_https_names)
+}
+
+module "storage_trigger_cloud_function" {
+  source = "../modules/storage_trigger_cloud_function"
+  region = var.region
+  runtime = var.runtime
+  cloud_function_automation_name = var.cloud_function_automation_name
+  automation_function_entry_point = var.automation_function_entry_point
+  bucket_id = module.cloud_storages[1].bucket_id
+  bucket_name = module.cloud_storages[0].bucket_name
+  bucket_object_name = module.object[2].bucket_object_name
+}
+
+module "load_balancer" {
+  source = "../modules/internal_load_balancer"
+  region = var.region
+  cloud_run_names = var.cloud_function_https_names
+  neg_name = var.neg_names
+  backend_service_name = var.backend_services_names
+  lb_name = var.lb_name
+  cert_name = var.cert_name
+  cert_file = var.cert_file
+  private_key_file = var.private_key_file
+  https_proxy_name = var.https_proxy_name
+  https_forwarding_rule_name = var.https_forwarding_rule_name
+  subnetwork = module.network.subnet_name
+  network = module.network.network_name
+  depends_on = [ module.https_trigger_cloud_run ]
+}

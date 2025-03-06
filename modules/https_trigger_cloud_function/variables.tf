@@ -7,11 +7,11 @@ variable "runtime" {
 }
 
 variable "cloud_function_https_name" {
-  type = list(string)
+  type = string
 }
 
 variable "https_function_entry_point" {
-  type = list(string)
+  type = string
 }
 
 variable "bucket_name" {
@@ -19,5 +19,5 @@ variable "bucket_name" {
 }
 
 variable "bucket_object_name" {
-  type = list(string)
+  type = string
 }
