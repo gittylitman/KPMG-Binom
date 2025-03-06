@@ -25,7 +25,7 @@ resource "google_compute_region_url_map" "url_map" {
   name   = var.lb_name
   region = var.region
 
-  default_service = google_compute_region_backend_service.backend_service_getvault.id
+  default_service = google_compute_region_backend_service.backend_service[0].id
 
   host_rule {
     hosts        = ["*"]
@@ -38,18 +38,13 @@ resource "google_compute_region_url_map" "url_map" {
     default_service = google_compute_region_backend_service.backend_service[0].id
 
     path_rule {
-      paths   = ["/getvault"]
+      paths   = ["/GetResult"]
       service = google_compute_region_backend_service.backend_service[0].id
     }
 
     path_rule {
-      paths   = ["/getsummary"]
+      paths   = ["/GetSummary"]
       service = google_compute_region_backend_service.backend_service[1].id
-    }
-
-    path_rule {
-      paths   = ["/automation"]
-      service = google_compute_region_backend_service.backend_service[2].id
     }
   }
 }
