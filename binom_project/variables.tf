@@ -1,5 +1,6 @@
 variable "project_id" {
   type = string
+  default = "kpng-shechter"
 }
 
 variable "project_name" {
@@ -38,6 +39,7 @@ variable "ip_cidr_range" {
 
 variable "service_account_vm_name" {
   type = string
+  default = "sa-vm-dev-binom"
 }
 
 variable "zone_part" {
@@ -47,12 +49,14 @@ variable "zone_part" {
 
 variable "vm_name" {
   type = string
+  default = "vm-dev-binom"
 }
 
 # document AI module
 
 variable "document_ai_name" {
   type = string
+  default = "document-ai-dev-binom"
 }
 
 variable "document_ai_location" {
@@ -64,6 +68,7 @@ variable "document_ai_location" {
 
 variable "firestore_name" {
   type = string
+  default = "firestore-dev-binom"
 }
 
 variable "tables_name" {
