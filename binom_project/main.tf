@@ -90,5 +90,5 @@ module "load_balancer" {
   https_forwarding_rule_name = var.https_forwarding_rule_name
   subnetwork = module.network.subnet_name
   network = module.network.network_name
-  depends_on = [ module.https_trigger_cloud_run ]
+  depends_on = [ module.https_trigger_cloud_function ]
 }
