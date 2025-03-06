@@ -176,3 +176,14 @@ variable "https_forwarding_rule_name" {
   type = string
   default = "forwarding-rule-dev-binom"
 }
+
+variable "subnet_proxy_name" {
+  type = string
+  default = "snet-proxy-dev-binom"
+}
+
+variable "ip_range" {
+  type = string
+  default = "100.69.1.112/28"
+}
+
