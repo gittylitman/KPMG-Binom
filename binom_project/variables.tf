@@ -115,7 +115,7 @@ variable "runtime" {
 
 variable "cloud_function_https_names" {
   type = list(string)
-  default = [ "GetResult","GetSummary" ]
+  default = [ "get-result","get-summary" ]
 }
 
 variable "https_function_entry_points" {
@@ -127,7 +127,7 @@ variable "https_function_entry_points" {
 
 variable "cloud_function_automation_name" {
   type = string
-  default = "Automation"
+  default = "automation"
 }
 
 variable "automation_function_entry_point" {
