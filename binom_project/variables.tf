@@ -20,7 +20,7 @@ variable "region" {
 
 variable "region_cloud_functions" {
   type = string
-  default = "me-west1"
+  default = "us-central1"
 }
 
 # network module
