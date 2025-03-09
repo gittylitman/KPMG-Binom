@@ -159,12 +159,12 @@ variable "cert_name" {
 
 variable "cert_file" {
   type = string
-  default = "path-to-cert-file"
+  default = "./certificate.pem"
 }
 
 variable "private_key_file" {
   type = string
-  default = "path-to-private-key-file"
+  default = "./private_key.pem"
 }
 
 variable "https_proxy_name" {
