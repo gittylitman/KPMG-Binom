@@ -25,16 +25,6 @@ variable "region_cloud_functions" {
 
 # network module
 
-variable "vpc_name" {
-  type = string
-  default = "vpc-dev-binom"
-}
-
-variable "subnet_name" {
-  type = string
-  default = "snet-dev-binom"
-}
-
 variable "ip_cidr_range" {
   type = string
   default = "100.69.3.0/28"
@@ -42,27 +32,12 @@ variable "ip_cidr_range" {
 
 # windows vm module
 
-variable "service_account_vm_name" {
-  type = string
-  default = "sa-vm-dev-binom"
-}
-
 variable "zone_part" {
   type = string
   default = "a"
 }
 
-variable "vm_name" {
-  type = string
-  default = "vm-dev-binom"
-}
-
 # document AI module
-
-variable "document_ai_name" {
-  type = string
-  default = "document-ai-dev-binom"
-}
 
 variable "document_ai_location" {
   type = string
@@ -70,11 +45,6 @@ variable "document_ai_location" {
 }
 
 # firestore module
-
-variable "firestore_name" {
-  type = string
-  default = "firestore-dev-binom"
-}
 
 variable "tables_name" {
   type = list(string)
@@ -85,7 +55,7 @@ variable "tables_name" {
 
 variable "cloud_storage_names" {
   type = list(string)
-  default = [ "gcs-source-dev-binom", "gcs-dev-binom" ]
+  default = [ "gcs-source", "gcs" ]
 }
 
 # object module
@@ -139,22 +109,12 @@ variable "automation_function_entry_point" {
 
 variable "neg_names" {
   type = list(string)
-  default = ["neg-getresult-dev-binom", "neg-getsummary-dev-binom"]
+  default = ["neg-getresult", "neg-getsummary"]
 }
 
 variable "backend_services_names" {
   type = list(string)
-  default = ["back-getresult-dev-binom", "back-getsummary-dev-binom"]
-}
-
-variable "lb_name" {
-  type = string
-  default = "lb-dev-binom"
-}
-
-variable "cert_name" {
-  type = string
-  default = "cert-dev-binom"
+  default = ["back-getresult", "back-getsummary"]
 }
 
 variable "cert_file" {
@@ -165,21 +125,6 @@ variable "cert_file" {
 variable "private_key_file" {
   type = string
   default = "./private_key.pem"
-}
-
-variable "https_proxy_name" {
-  type = string
-  default = "proxy-dev-binom"
-}
-
-variable "https_forwarding_rule_name" {
-  type = string
-  default = "forwarding-rule-dev-binom"
-}
-
-variable "subnet_proxy_name" {
-  type = string
-  default = "snet-proxy-dev-binom"
 }
 
 variable "ip_range" {
