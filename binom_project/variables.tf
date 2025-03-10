@@ -1,6 +1,5 @@
 variable "project_id" {
   type = string
-  default = "kpng-shechter"
 }
 
 variable "project_name" {
