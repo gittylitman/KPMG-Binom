@@ -3,9 +3,9 @@ variable "bucket_name" {
 }
 
 variable "bucket_object_name" {
-  type = list(string)
+  type = string
 }
 
 variable "bucket_storage_source" {
-  type = list(string)
+  type = string
 }

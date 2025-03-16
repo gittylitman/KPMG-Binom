@@ -8,4 +8,5 @@ variable "name" {
 
 variable "type" {
     type = string
+    default = "OCR_PROCESSOR"
 }

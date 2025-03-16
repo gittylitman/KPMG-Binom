@@ -1,4 +1,4 @@
-resource "google_cloudfunctions_function" "storage_trigg_function" {
+resource "google_cloudfunctions_function" "storage_trigger_function" {
   name                    = var.cloud_function_automation_name
   region                  = var.region
   runtime                 = var.runtime

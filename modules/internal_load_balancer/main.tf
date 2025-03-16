@@ -25,7 +25,7 @@ resource "google_compute_region_url_map" "url_map" {
   name   = var.lb_name
   region = var.region
 
-  default_service = google_compute_region_backend_service.backend_service_getvault.id
+  default_service = google_compute_region_backend_service.backend_service[0].id
 
   host_rule {
     hosts        = ["*"]
@@ -38,33 +38,38 @@ resource "google_compute_region_url_map" "url_map" {
     default_service = google_compute_region_backend_service.backend_service[0].id
 
     path_rule {
-      paths   = ["/getvault"]
+      paths   = ["/GetResult"]
       service = google_compute_region_backend_service.backend_service[0].id
     }
 
     path_rule {
-      paths   = ["/getsummary"]
+      paths   = ["/GetSummary"]
       service = google_compute_region_backend_service.backend_service[1].id
-    }
-
-    path_rule {
-      paths   = ["/automation"]
-      service = google_compute_region_backend_service.backend_service[2].id
     }
   }
 }
 
-resource "google_compute_ssl_certificate" "ca_cert" {
+resource "google_compute_region_ssl_certificate" "ca_cert" {
   name        = var.cert_name
+  region      = var.region
   private_key = file(var.private_key_file)
   certificate = file(var.cert_file)
+}
+
+resource "google_compute_subnetwork" "proxy_subnet" {
+  name          = var.subnet_proxy_name
+  region        = var.region
+  ip_cidr_range = var.ip_range
+  purpose       = "REGIONAL_MANAGED_PROXY"
+  role          = "ACTIVE"
+  network       = var.network_id
 }
 
 resource "google_compute_region_target_https_proxy" "https_proxy" {
   name            = var.https_proxy_name
   region          = var.region
   url_map         = google_compute_region_url_map.url_map.id
-  ssl_certificates = [google_compute_ssl_certificate.ca_cert.id]
+  ssl_certificates = [google_compute_region_ssl_certificate.ca_cert.id]
 }
 
 resource "google_compute_forwarding_rule" "https_forwarding_rule" {
