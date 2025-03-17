@@ -56,7 +56,7 @@ module "object" {
 
 module "https_trigger_cloud_function" {
   source = "../modules/https_trigger_cloud_function"
-  region = var.region_cloud_functions
+  region = var.region
   runtime = var.runtime
   cloud_function_https_name = var.cloud_function_https_names[count.index]
   https_function_entry_point = var.https_function_entry_points[count.index]
@@ -67,7 +67,7 @@ module "https_trigger_cloud_function" {
 
 module "storage_trigger_cloud_function" {
   source = "../modules/storage_trigger_cloud_function"
-  region = var.region_cloud_functions
+  region = var.region
   runtime = var.runtime
   cloud_function_automation_name = var.cloud_function_automation_name
   automation_function_entry_point = var.automation_function_entry_point

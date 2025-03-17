@@ -17,11 +17,6 @@ variable "region" {
   default = "me-west1"
 }
 
-variable "region_cloud_functions" {
-  type = string
-  default = "us-central1"
-}
-
 # network module
 
 variable "ip_cidr_range" {
@@ -66,11 +61,6 @@ variable "bucket_object_names" {
 
 variable "bucket_object_sources" {
   type = list(string)
-  default = [
-    "../services_getresult_1741077250.383000.zip",
-    "../services_getresult_1741077250.383000.zip",
-    "../services_automation_1741077172.506000.zip"
-  ]
 }
 
 # cloud_function modules
@@ -118,12 +108,10 @@ variable "backend_services_names" {
 
 variable "cert_file" {
   type = string
-  default = "./certificate.pem"
 }
 
 variable "private_key_file" {
   type = string
-  default = "./private_key.pem"
 }
 
 variable "ip_range" {
