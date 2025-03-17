@@ -23,5 +23,9 @@ jobs:
         run: |
           cd binom_project
           terraform init
+<<<<<<< HEAD
           terraform destroy -auto-approve
           
+=======
+          terraform destroy -auto-approve
+>>>>>>> main
