@@ -17,14 +17,14 @@ module "network" {
   ip_cidr_range = var.ip_cidr_range
 }
 
-module "windows_vm" {
-  source = "../modules/windows_vm"
-  service_account_vm_name = "${var.project_name}-sa-vm-${var.environment}"
-  zone = "${var.region}-${var.zone_part}"
-  vm_name = "${var.project_name}-vm-${var.environment}"
-  network_name = module.network.network_name
-  subnetwork_name = module.network.subnet_name
-}
+# module "windows_vm" {
+#   source = "../modules/windows_vm"
+#   service_account_vm_name = "${var.project_name}-sa-vm-${var.environment}"
+#   zone = "${var.region}-${var.zone_part}"
+#   vm_name = "${var.project_name}-vm-${var.environment}"
+#   network_name = module.network.network_name
+#   subnetwork_name = module.network.subnet_name
+# }
 
 module "document_ai" {
   source = "../modules/document_AI"
@@ -56,7 +56,7 @@ module "object" {
 
 module "https_trigger_cloud_function" {
   source = "../modules/https_trigger_cloud_function"
-  region = var.region
+  region = "us-central1"
   runtime = var.runtime
   cloud_function_https_name = var.cloud_function_https_names[count.index]
   https_function_entry_point = var.https_function_entry_points[count.index]
@@ -67,7 +67,7 @@ module "https_trigger_cloud_function" {
 
 module "storage_trigger_cloud_function" {
   source = "../modules/storage_trigger_cloud_function"
-  region = var.region
+  region = "us-central1"
   runtime = var.runtime
   cloud_function_automation_name = var.cloud_function_automation_name
   automation_function_entry_point = var.automation_function_entry_point
