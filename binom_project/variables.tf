@@ -63,9 +63,9 @@ variable "bucket_object_names" {
 variable "bucket_object_sources" {
   type = list(string)
   default = [ 
-    "services_getresult_1741077250.383000.zip",
-    "services_getresult_1741077250.383000.zip",
-    "services_automation_1741077172.506000.zip",
+    "../services_getresult_1741077250.383000.zip",
+    "../services_getresult_1741077250.383000.zip",
+    "../services_automation_1741077172.506000.zip",
   ]
 }
 
