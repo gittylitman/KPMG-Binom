@@ -63,6 +63,7 @@ resource "google_compute_subnetwork" "proxy_subnet" {
   purpose       = "REGIONAL_MANAGED_PROXY"
   role          = "ACTIVE"
   network       = var.network_id
+  project = var.host_project_id
 }
 
 resource "google_compute_region_target_https_proxy" "https_proxy" {

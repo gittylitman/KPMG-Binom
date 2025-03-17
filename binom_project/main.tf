@@ -15,6 +15,7 @@ module "network" {
   subnetwork_name = "${var.project_name}-snet-${var.environment}"
   region = var.region
   ip_cidr_range = var.ip_cidr_range
+  host_project_id = var.host_project_id
 }
 
 module "windows_vm" {
@@ -93,4 +94,5 @@ module "load_balancer" {
   subnet_proxy_name = "${var.project_name}-snet-proxy-${var.environment}"
   ip_range = var.ip_range
   network_id = module.network.network_id
+  host_project_id = var.host_project_id
 }
