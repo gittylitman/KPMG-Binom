@@ -57,3 +57,7 @@ variable "ip_range" {
 variable "network_id" {
   type = string
 }
+
+variable "host_project_id" {
+  type = string
+}
