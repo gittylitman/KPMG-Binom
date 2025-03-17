@@ -93,5 +93,5 @@ module "load_balancer" {
   subnet_proxy_name = "${var.project_name}-snet-proxy-${var.environment}"
   ip_range = var.ip_range
   network_id = module.network.network_id
-  depends_on = [ module.https_trigger_cloud_function, module.network ]
+  depends_on = [ module.https_trigger_cloud_function, module.storage_trigger_cloud_function ]
 }
