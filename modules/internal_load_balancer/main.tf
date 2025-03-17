@@ -80,4 +80,5 @@ resource "google_compute_forwarding_rule" "https_forwarding_rule" {
   port_range            = "443"
   network               = var.network
   subnetwork            = var.subnetwork
+  depends_on = [ google_compute_subnetwork.proxy_subnet ]
 }
