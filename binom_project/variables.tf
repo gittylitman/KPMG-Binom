@@ -110,14 +110,6 @@ variable "backend_services_names" {
   default = ["back-getresult", "back-getsummary"]
 }
 
-variable "cert_file" {
-  type = string
-}
-
-variable "private_key_file" {
-  type = string
-}
-
 variable "ip_range" {
   type = string
   default = "100.69.4.0/26"

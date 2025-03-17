@@ -22,14 +22,6 @@ variable "cert_name" {
   type = string
 }
 
-variable "cert_file" {
-  type = string
-}
-
-variable "private_key_file" {
-  type = string
-}
-
 variable "https_proxy_name" {
     type = string
 }
