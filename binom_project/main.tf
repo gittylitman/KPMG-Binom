@@ -85,8 +85,6 @@ module "load_balancer" {
   backend_service_name = ["${var.project_name}-${var.backend_services_names[0]}-${var.environment}", "${var.project_name}-${var.backend_services_names[1]}-${var.environment}"]
   lb_name = "${var.project_name}-lb-${var.environment}"
   cert_name = "${var.project_name}-cert-${var.environment}"
-  cert_file = var.cert_file
-  private_key_file = var.private_key_file
   https_proxy_name = "${var.project_name}-proxy-${var.environment}"
   https_forwarding_rule_name = "${var.project_name}-forwarding-rule-${var.environment}"
   subnetwork = module.network.subnet_name
