@@ -1,4 +1,4 @@
-name: '🌍 Terraform Automation'
+name: '🌍 Destroy Terraform Automation'
 
 on:
   workflow_dispatch:
