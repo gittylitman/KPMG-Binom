@@ -12,7 +12,7 @@ provider "google" {
 module "network" {
   source = "../modules/network"
   vpc_name = var.environment
-  subnetwork_name = "snet-${var.environment}-${var.project_name}"
+  subnetwork_name = var.subnet_name
   region = var.region
   host_project_id = var.host_project_id
 }
@@ -88,6 +88,6 @@ module "load_balancer" {
   https_forwarding_rule_name = "${var.project_name}-forwarding-rule-${var.environment}"
   subnetwork = module.network.subnet_name
   network = module.network.network_name
-  subnet_proxy_name = "${var.project_name}-snet-proxy-${var.environment}"
+  subnet_proxy_name = var.subnet_proxy_name
   host_project_id = var.host_project_id
 }

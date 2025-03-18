@@ -23,6 +23,12 @@ variable "region" {
   default = "me-west1"
 }
 
+# module network
+
+variable "subnet_name" {
+  type = string
+}
+
 # windows vm module
 
 variable "zone_part" {
@@ -106,5 +112,9 @@ variable "backend_services_names" {
 }
 
 variable "certificate_name" {
+  type = string
+}
+
+variable "subnet_proxy_name" {
   type = string
 }
