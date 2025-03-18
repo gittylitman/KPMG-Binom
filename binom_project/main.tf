@@ -11,10 +11,9 @@ provider "google" {
 
 module "network" {
   source = "../modules/network"
-  vpc_name = "${var.project_name}-vpc-${var.environment}"
-  subnetwork_name = "${var.project_name}-snet-${var.environment}"
+  vpc_name = var.environment
+  subnetwork_name = "snet-${var.environment}-${var.project_name}"
   region = var.region
-  ip_cidr_range = var.ip_cidr_range
   host_project_id = var.host_project_id
 }
 
@@ -90,7 +89,5 @@ module "load_balancer" {
   subnetwork = module.network.subnet_name
   network = module.network.network_name
   subnet_proxy_name = "${var.project_name}-snet-proxy-${var.environment}"
-  ip_range = var.ip_range
-  network_id = module.network.network_id
   host_project_id = var.host_project_id
 }

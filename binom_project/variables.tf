@@ -1,9 +1,11 @@
 variable "project_id" {
   type = string
+  default = "dgt-gcp-cgov-t-binom"
 }
 
 variable "host_project_id" {
   type = string
+  default = "dgt-gcp-cgov-net-office-0"
 }
 
 variable "project_name" {
@@ -13,19 +15,12 @@ variable "project_name" {
 
 variable "environment" {
   type = string
-  default = "dev"
+  default = "test"
 }
 
 variable "region" {
   type = string
   default = "me-west1"
-}
-
-# network module
-
-variable "ip_cidr_range" {
-  type = string
-  default = "100.69.3.0/28"
 }
 
 # windows vm module
@@ -108,9 +103,4 @@ variable "neg_names" {
 variable "backend_services_names" {
   type = list(string)
   default = ["back-getresult", "back-getsummary"]
-}
-
-variable "ip_range" {
-  type = string
-  default = "100.69.4.0/26"
 }
