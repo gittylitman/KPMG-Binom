@@ -7,6 +7,7 @@ resource "google_compute_network" "vpc_network" {
   name         = var.vpc_name
   auto_create_subnetworks = false
   routing_mode = "REGIONAL"
+  depends_on = [ google_project_service.cloud_resource_manager ]
 }
 
 resource "google_compute_subnetwork" "subnetwork" {
