@@ -27,14 +27,12 @@ module "network" {
 # }
 
 module "document_ai" {
-  project_id = var.project_id
   source = "../modules/document_AI"
   location = var.document_ai_location
   name = "${var.project_name}-document-ai-${var.environment}"
 }
 
 module "firestore" {
-  project_id = var.project_id
   source = "../modules/firestore"
   name = "${var.project_name}-firestore-${var.environment}"
   location = var.region
