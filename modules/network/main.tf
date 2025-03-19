@@ -1,3 +1,8 @@
+resource "google_project_service" "cloud_resource_manager"{
+  service = "cloudresourcemanager.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_compute_network" "vpc_network" {
   name         = var.vpc_name
   auto_create_subnetworks = false

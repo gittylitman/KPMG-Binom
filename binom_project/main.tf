@@ -30,6 +30,7 @@ module "document_ai" {
   source = "../modules/document_AI"
   location = var.document_ai_location
   name = "${var.project_name}-document-ai-${var.environment}"
+  depends_on = [ module.network ]
 }
 
 module "firestore" {
@@ -37,6 +38,7 @@ module "firestore" {
   name = "${var.project_name}-firestore-${var.environment}"
   location = var.region
   table_name = var.tables_name
+  depends_on = [ module.network ]
 }
 
 module "cloud_storages" {
@@ -44,6 +46,7 @@ module "cloud_storages" {
   name = "${var.project_name}-${var.cloud_storage_names[count.index]}-${var.environment}"
   location = var.region
   count = length(var.cloud_storage_names)
+  depends_on = [ module.network ]
 }
 
 module "object" {
@@ -63,6 +66,7 @@ module "https_trigger_cloud_function" {
   bucket_name = module.cloud_storages[0].bucket_name
   bucket_object_name = module.object[count.index].bucket_object_name
   count   =   length(var.cloud_function_https_names)
+  depends_on = [ module.network ]
 }
 
 module "storage_trigger_cloud_function" {
