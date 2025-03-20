@@ -19,8 +19,8 @@ resource "google_compute_instance" "windows_vm"{
       }
     }
     network_interface {
-      network = var.network_name
-      subnetwork = var.subnetwork_name
+      network = var.network_id
+      subnetwork = var.subnetwork_id
     }
     service_account {
       email = google_service_account.vm_instance_service_account.email

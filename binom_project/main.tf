@@ -27,8 +27,8 @@ module "windows_vm" {
   service_account_vm_name = "${var.project_name}-sa-vm-${var.environment}"
   zone = "${var.region}-${var.zone_part}"
   vm_name = "${var.project_name}-vm-${var.environment}"
-  network_name = module.network.network_name
-  subnetwork_name = module.network.subnet_name
+  network_id = module.network.network_id
+  subnetwork_id = module.network.subnet_id
 }
 
 module "document_ai" {
@@ -91,8 +91,8 @@ module "load_balancer" {
   cert_name = var.certificate_name
   https_proxy_name = "${var.project_name}-proxy-${var.environment}"
   https_forwarding_rule_name = "${var.project_name}-forwarding-rule-${var.environment}"
-  subnetwork = module.network.subnet_name
-  network = module.network.network_name
+  subnetwork = module.network.subnet_id
+  network = module.network.network_id
   subnet_proxy_name = "${var.project_name}-snet-proxy-${var.environment}"
   host_project_id = var.host_project_id
 }
