@@ -1,6 +1,6 @@
 variable "project_id" {
   type = string
-  default = "binom-454307"
+  default = "kpmg-shechter"
 }
 
 variable "project_name" {
