@@ -19,7 +19,7 @@ module "network" {
   subnetwork_name = "${var.project_name}-snet-${var.environment}"
   region = var.region
   ip_cidr_range = var.ip_cidr_range
-  depends_on = [ module.enable_apis ]
+  depends_on = [ module.enable_apis.time_sleep.wait_90_seconds ]
 }
 
 # module "windows_vm" {
