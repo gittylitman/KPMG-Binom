@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "terraform-binom"
+    bucket  = "terraform-binom1"
     prefix  = "state"
   }
 }
