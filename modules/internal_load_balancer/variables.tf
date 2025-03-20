@@ -42,14 +42,6 @@ variable "subnet_proxy_name" {
   type = string
 }
 
-variable "ip_range" {
-  type = string
-}
-
-variable "network_id" {
-  type = string
-}
-
 variable "host_project_id" {
   type = string
 }

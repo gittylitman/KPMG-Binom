@@ -23,9 +23,12 @@ variable "region" {
 
 # network module
 
-variable "ip_cidr_range" {
+variable "vpc_name" {
   type = string
-  default = "100.69.3.0/28"
+}
+
+variable "subnet_name" {
+  type = string
 }
 
 # windows vm module
@@ -110,7 +113,6 @@ variable "backend_services_names" {
   default = ["back-getresult", "back-getsummary"]
 }
 
-variable "ip_range" {
+variable "certificate_name" {
   type = string
-  default = "100.69.4.0/26"
 }
