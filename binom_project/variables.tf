@@ -31,6 +31,10 @@ variable "subnet_name" {
   type = string
 }
 
+variable "subnet_proxy_name" {
+  type = string
+}
+
 # windows vm module
 
 variable "zone_part" {
