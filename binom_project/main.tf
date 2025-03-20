@@ -9,12 +9,17 @@ provider "google" {
   project = var.project_id
 }
 
+module "enable_apis" {
+  source = "../modules/enable_apis"
+}
+
 module "network" {
   source = "../modules/network"
   vpc_name = var.vpc_name
   subnetwork_name = var.subnet_name
   region = var.region
   host_project_id = var.host_project_id
+  depends_on = [ module.enable_apis ]
 }
 
 module "windows_vm" {
