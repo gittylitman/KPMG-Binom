@@ -13,15 +13,10 @@ module "enable_apis" {
   source = "../modules/enable_apis"
 }
 
-
-resource "time_sleep" "wait_90_seconds" {
-  depends_on = [
-    module.enable_apis
-  ]
-
-  create_duration = "90s"
+module "time_sleep" {
+  source = "../modules/time_sleep"
+  depends_on = [ module.enable_apis ]
 }
-
 
 module "network" {
   source = "../modules/network"
@@ -29,7 +24,7 @@ module "network" {
   subnetwork_name = "${var.project_name}-snet-${var.environment}"
   region = var.region
   ip_cidr_range = var.ip_cidr_range
-  depends_on = [ time_sleep.wait_90_seconds ]
+  depends_on = [ module.time_sleep ]
 }
 
 # module "windows_vm" {
