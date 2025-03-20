@@ -9,13 +9,17 @@ provider "google" {
   project = var.project_id
 }
 
+module "enable_apis" {
+  source = "../modules/enable_apis"
+}
+
 module "network" {
   source = "../modules/network"
-  vpc_name = "${var.project_name}-vpc-${var.environment}"
-  subnetwork_name = "${var.project_name}-snet-${var.environment}"
+  vpc_name = var.vpc_name
+  subnetwork_name = var.subnet_name
   region = var.region
-  ip_cidr_range = var.ip_cidr_range
   host_project_id = var.host_project_id
+  depends_on = [ module.enable_apis ]
 }
 
 module "windows_vm" {
@@ -23,8 +27,8 @@ module "windows_vm" {
   service_account_vm_name = "${var.project_name}-sa-vm-${var.environment}"
   zone = "${var.region}-${var.zone_part}"
   vm_name = "${var.project_name}-vm-${var.environment}"
-  network_name = module.network.network_name
-  subnetwork_name = module.network.subnet_name
+  network_id = module.network.network_id
+  subnetwork_id = module.network.subnet_id
 }
 
 module "document_ai" {
@@ -84,13 +88,11 @@ module "load_balancer" {
   neg_name = ["${var.project_name}-${var.neg_names[0]}-${var.environment}", "${var.project_name}-${var.neg_names[1]}-${var.environment}"]
   backend_service_name = ["${var.project_name}-${var.backend_services_names[0]}-${var.environment}", "${var.project_name}-${var.backend_services_names[1]}-${var.environment}"]
   lb_name = "${var.project_name}-lb-${var.environment}"
-  cert_name = "${var.project_name}-cert-${var.environment}"
+  cert_name = var.certificate_name
   https_proxy_name = "${var.project_name}-proxy-${var.environment}"
   https_forwarding_rule_name = "${var.project_name}-forwarding-rule-${var.environment}"
-  subnetwork = module.network.subnet_name
-  network = module.network.network_name
-  subnet_proxy_name = "${var.project_name}-snet-proxy-${var.environment}"
-  ip_range = var.ip_range
-  network_id = module.network.network_id
+  subnetwork = module.network.subnet_id
+  network = module.network.network_id
+  subnet_proxy_name = var.subnet_proxy_name
   host_project_id = var.host_project_id
 }
