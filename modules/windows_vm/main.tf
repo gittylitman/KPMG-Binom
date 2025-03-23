@@ -8,6 +8,11 @@ resource "google_project_service" "iam" {
   disable_on_destroy = false
 }
 
+resource "time_sleep" "wait_60_seconds" {
+  create_duration = "60s"
+  depends_on = [ google_project_service.compute ]
+}
+
 resource "google_service_account" "vm_instance_service_account" {
   account_id   = var.service_account_vm_name
   display_name = "SA for windows-VM Instance"
@@ -31,5 +36,5 @@ resource "google_compute_instance" "windows_vm"{
       email = google_service_account.vm_instance_service_account.email
       scopes = ["cloud-platform"]
     }
-    depends_on = [ google_project_service.compute ]
+    depends_on = [ time_sleep.wait_60_seconds ]
 }
