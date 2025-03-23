@@ -3,6 +3,11 @@ resource "google_project_service" "compute" {
   disable_on_destroy = false
 }
 
+resource "time_sleep" "wait_60_seconds" {
+  create_duration = "60s"
+  depends_on = [ google_project_service.compute ]
+}
+
 resource "google_compute_region_network_endpoint_group" "serverless_neg" {
   name                  = var.neg_name[count.index]
   region                = var.region
@@ -12,7 +17,7 @@ resource "google_compute_region_network_endpoint_group" "serverless_neg" {
   }
 
   count = length(var.neg_name)
-  depends_on = [ google_project_service.compute ]
+  depends_on = [ time_sleep.wait_60_seconds ]
 }
 
 resource "google_compute_region_backend_service" "backend_service" {
@@ -60,7 +65,7 @@ resource "google_compute_region_ssl_certificate" "ca_cert" {
   region      = var.region
   private_key = file(var.private_key_file)
   certificate = file(var.cert_file)
-  depends_on = [ google_project_service.compute ]
+  depends_on = [ time_sleep.wait_60_seconds ]
 }
 
 resource "google_compute_subnetwork" "proxy_subnet" {
@@ -70,7 +75,7 @@ resource "google_compute_subnetwork" "proxy_subnet" {
   purpose       = "REGIONAL_MANAGED_PROXY"
   role          = "ACTIVE"
   network       = var.network_id
-  depends_on = [ google_project_service.compute ]
+  depends_on = [ time_sleep.wait_60_seconds ]
 }
 
 resource "google_compute_region_target_https_proxy" "https_proxy" {
