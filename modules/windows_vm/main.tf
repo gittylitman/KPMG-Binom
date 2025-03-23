@@ -1,3 +1,8 @@
+resource "google_project_service" "compute" {
+  service            = "compute.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_project_service" "iam" {
   service            = "iam.googleapis.com"
   disable_on_destroy = false
@@ -26,4 +31,5 @@ resource "google_compute_instance" "windows_vm"{
       email = google_service_account.vm_instance_service_account.email
       scopes = ["cloud-platform"]
     }
+    depends_on = [ google_project_service.compute ]
 }

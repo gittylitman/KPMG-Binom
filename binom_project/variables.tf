@@ -1,6 +1,6 @@
 variable "project_id" {
   type = string
-  default = "final-binom-terraform"
+  default = "binom-project"
 }
 
 variable "project_name" {

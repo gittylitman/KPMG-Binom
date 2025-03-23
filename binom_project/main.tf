@@ -9,13 +9,9 @@ provider "google" {
   project = var.project_id
 }
 
-module "enable_apis" {
-  source = "../modules/enable_apis"
-}
-
-module "time_sleep" {
-  source = "../modules/time_sleep"
-  depends_on = [ module.enable_apis ]
+resource "google_project_service" "cloudresourcemanager" {
+  service            = "cloudresourcemanager.googleapis.com"
+  disable_on_destroy = false
 }
 
 module "network" {
@@ -24,7 +20,7 @@ module "network" {
   subnetwork_name = "${var.project_name}-snet-${var.environment}"
   region = var.region
   ip_cidr_range = var.ip_cidr_range
-  depends_on = [ module.time_sleep ]
+  depends_on = [ google_project_service.cloudresourcemanager ]
 }
 
 # module "windows_vm" {
