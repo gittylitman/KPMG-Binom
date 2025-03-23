@@ -61,12 +61,14 @@ resource "google_compute_region_url_map" "url_map" {
 
 data "google_compute_region_ssl_certificate" "ca_cert" {
   name        = var.cert_name
+  depends_on = [ time_sleep.wait_60_seconds ]
 }
 
 data "google_compute_subnetwork" "proxy_subnet" {
   name          = var.subnet_proxy_name
   region        = var.region
   project = var.host_project_id
+  depends_on = [ time_sleep.wait_60_seconds ]
 }
 
 resource "google_compute_region_target_https_proxy" "https_proxy" {
