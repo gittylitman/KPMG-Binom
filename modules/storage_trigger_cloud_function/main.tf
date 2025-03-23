@@ -1,3 +1,13 @@
+resource "google_project_service" "cloudbuild" {
+  service            = "cloudbuild.googleapis.com"
+  disable_on_destroy = false
+}
+
+resource "google_project_service" "cloudfunctions" {
+  service            = "cloudfunctions.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_cloudfunctions_function" "storage_trigger_function" {
   name                    = var.cloud_function_automation_name
   region                  = var.region
@@ -10,4 +20,8 @@ resource "google_cloudfunctions_function" "storage_trigger_function" {
     event_type = var.event_type
     resource   = var.bucket_id
   }
+  depends_on = [ 
+    google_project_service.cloudbuild,
+    google_project_service.cloudfunctions 
+  ]
 }

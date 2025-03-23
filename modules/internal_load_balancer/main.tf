@@ -1,3 +1,13 @@
+resource "google_project_service" "compute" {
+  service            = "compute.googleapis.com"
+  disable_on_destroy = false
+}
+
+resource "time_sleep" "wait_60_seconds" {
+  create_duration = "60s"
+  depends_on = [ google_project_service.compute ]
+}
+
 resource "google_compute_region_network_endpoint_group" "serverless_neg" {
   name                  = var.neg_name[count.index]
   region                = var.region
@@ -5,8 +15,8 @@ resource "google_compute_region_network_endpoint_group" "serverless_neg" {
   cloud_run {
     service = var.cloud_run_names[count.index]
   }
-
   count = length(var.neg_name)
+  depends_on = [ time_sleep.wait_60_seconds ]
 }
 
 resource "google_compute_region_backend_service" "backend_service" {
