@@ -3,11 +3,16 @@ resource "google_project_service" "compute" {
   disable_on_destroy = false
 }
 
+resource "time_sleep" "wait_60_seconds" {
+  create_duration = "60s"
+  depends_on = [ google_project_service.compute ]
+}
+
 resource "google_compute_network" "vpc_network" {
   name         = var.vpc_name
   auto_create_subnetworks = false
   routing_mode = "REGIONAL"
-  depends_on = [ google_project_service.compute ]
+  depends_on = [ time_sleep.wait_60_seconds ]
 }
 
 resource "google_compute_subnetwork" "subnetwork" {
