@@ -35,6 +35,10 @@ variable "subnet_proxy_name" {
   type = string
 }
 
+variable "connector_name" {
+  type = string
+}
+
 # windows vm module
 
 variable "zone_part" {
@@ -58,51 +62,31 @@ variable "tables_name" {
 
 # cloud storages module
 
-variable "cloud_storage_names" {
-  type = list(string)
-  default = [ "gcs-source", "gcs" ]
-}
-
-# object module
-
-variable "bucket_object_names" {
-  type = list(string)
-  default = ["bs-result" ,"bs-summary","automation"]
-}
-
-variable "bucket_object_sources" {
-  type = list(string)
-}
-
-# cloud_function modules
-
-variable "runtime" {
+variable "cloud_storage_name" {
   type = string
-  default = "python39"
+  default = "gcs"
 }
 
-# https_trigger_cloud_function module
+# https_trigger_cloud_run module
 
-variable "cloud_function_https_names" {
+variable "https_cloud_run_names" {
   type = list(string)
   default = [ "get-result","get-summary" ]
 }
 
-variable "https_function_entry_points" {
+variable "https_container_images" {
   type = list(string)
-  default = [ "getResult" ,"getResult" ]
 }
 
-# storage_trigger_cloud_function
+# module eventarc trigger
 
-variable "cloud_function_automation_name" {
+variable "cloud_run_automation_name" {
   type = string
   default = "automation"
 }
 
-variable "automation_function_entry_point" {
+variable "automation_container_image" {
   type = string
-  default = "hello_gcs"
 }
 
 # module load balancer

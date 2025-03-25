@@ -47,49 +47,40 @@ module "firestore" {
   depends_on = [ module.network ]
 }
 
-module "cloud_storages" {
+module "cloud_storage" {
   source = "../modules/cloud_storage"
-  name = "${var.project_name}-${var.cloud_storage_names[count.index]}-${var.environment}"
+  name = "${var.project_name}-${var.cloud_storage_name}-${var.environment}"
   location = var.region
-  count = length(var.cloud_storage_names)
   depends_on = [ module.network ]
 }
 
-module "object" {
-  source = "../modules/bucket_object"
-  bucket_name = module.cloud_storages[0].bucket_name
-  bucket_object_name = var.bucket_object_names[count.index]
-  bucket_storage_source = var.bucket_object_sources[count.index]
-  count  = length(var.bucket_object_names)
-}
-
-module "https_trigger_cloud_function" {
-  source = "../modules/https_trigger_cloud_function"
-  region = var.region
-  runtime = var.runtime
-  cloud_function_https_name = var.cloud_function_https_names[count.index]
-  https_function_entry_point = var.https_function_entry_points[count.index]
-  bucket_name = module.cloud_storages[0].bucket_name
-  bucket_object_name = module.object[count.index].bucket_object_name
-  count   =   length(var.cloud_function_https_names)
+module "cloud_run" {
+  source = "../modules/https_cloud_run"
+  cloud_run_name = var.https_cloud_run_names[count.index]
+  location = var.region
+  container_image = var.https_container_images[count.index]
+  count = length(var.https_cloud_run_names)
+  connector_name = var.connector_name
+  host_project_id = var.host_project_id
   depends_on = [ module.network ]
 }
 
-module "storage_trigger_cloud_function" {
-  source = "../modules/storage_trigger_cloud_function"
-  region = var.region
-  runtime = var.runtime
-  cloud_function_automation_name = var.cloud_function_automation_name
-  automation_function_entry_point = var.automation_function_entry_point
-  bucket_id = module.cloud_storages[1].bucket_id
-  bucket_name = module.cloud_storages[0].bucket_name
-  bucket_object_name = module.object[2].bucket_object_name
+module "eventarc_trigger" {
+  source = "../modules/eventarc_trigger"
+  sa_eventarc_name = "${var.project_name}-sa-eventarc-${var.environment}"
+  cloud_run_name = var.cloud_run_automation_name
+  location = var.region
+  container_image = var.automation_container_image
+  trigger_name = "${var.project_name}-trigger-${var.environment}"
+  cloud_storage_name = module.cloud_storage.bucket_name
+  connector_name = var.connector_name
+  host_project_id = var.host_project_id
 }
 
 module "load_balancer" {
   source = "../modules/internal_load_balancer"
   region = var.region
-  cloud_run_names = var.cloud_function_https_names
+  cloud_run_names = var.https_cloud_run_names
   neg_name = ["${var.project_name}-${var.neg_names[0]}-${var.environment}", "${var.project_name}-${var.neg_names[1]}-${var.environment}"]
   backend_service_name = ["${var.project_name}-${var.backend_services_names[0]}-${var.environment}", "${var.project_name}-${var.backend_services_names[1]}-${var.environment}"]
   lb_name = "${var.project_name}-lb-${var.environment}"
@@ -100,4 +91,6 @@ module "load_balancer" {
   network = module.network.network_id
   subnet_proxy_name = var.subnet_proxy_name
   host_project_id = var.host_project_id
+
+  depends_on = [ module.cloud_run ]
 }
