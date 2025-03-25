@@ -63,6 +63,25 @@ data "google_compute_region_ssl_certificate" "ca_cert" {
   name        = var.cert_name
 }
 
+data "google_secret_manager_secret_version" "private_key_secret" {
+  secret = var.secret_name
+}
+
+data "google_secret_manager_secret_version" "certificate_secret" {
+  secret = var.secret_name
+}
+
+resource "google_compute_region_ssl_certificate" "default" {
+  region   = var.region
+  name        = "name"
+  private_key = data.google_secret_manager_secret_version.private_key_secret.secret_data
+  certificate = data.google_secret_manager_secret_version.certificate_secret.secret_data
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 data "google_compute_subnetwork" "proxy_subnet" {
   name          = var.subnet_proxy_name
   region        = var.region

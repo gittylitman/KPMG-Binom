@@ -45,3 +45,7 @@ variable "subnet_proxy_name" {
 variable "host_project_id" {
   type = string
 }
+
+variable "secret_name" {
+  type = string
+}
