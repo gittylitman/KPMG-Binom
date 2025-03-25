@@ -5,6 +5,7 @@ resource "google_project_service" "run" {
 
 data "google_vpc_access_connector" "connector" {
   name = var.connector_name
+  region = var.location
   project = var.host_project_id
 }
 
