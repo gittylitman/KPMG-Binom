@@ -72,7 +72,6 @@ variable "https_cloud_run_names" {
 
 variable "https_container_images" {
   type = list(string)
-  default = [ "us-docker.pkg.dev/cloudrun/container/hello", "us-docker.pkg.dev/cloudrun/container/hello" ]
 }
 
 # module eventarc trigger
@@ -84,7 +83,6 @@ variable "cloud_run_automation_name" {
 
 variable "automation_container_image" {
   type = string
-  default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
 
 # module load balancer
