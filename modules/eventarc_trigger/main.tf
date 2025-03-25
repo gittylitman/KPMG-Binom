@@ -44,6 +44,12 @@ module "cloud_run" {
   service_account = google_service_account.eventarc_sa.email
   connector_name = var.connector_name
   host_project_id = var.host_project_id
+  depends_on = [ 
+    google_project_iam_member.eventreceiver,
+    google_project_iam_member.runinvoker,
+    google_project_iam_member.tokencreator,
+    google_project_iam_member.pubsubpublisher
+  ]
 }
 
 module "eventarc" {
