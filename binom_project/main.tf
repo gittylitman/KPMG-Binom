@@ -80,6 +80,8 @@ module "eventarc_trigger" {
 module "load_balancer" {
   source = "../modules/internal_load_balancer"
   region = var.region
+  certificate_secret_name = var.certificate_secret_name
+  private_key_secret_name = var.private_key_secret_name
   cloud_run_names = var.https_cloud_run_names
   neg_name = ["${var.project_name}-${var.neg_names[0]}-${var.environment}", "${var.project_name}-${var.neg_names[1]}-${var.environment}"]
   backend_service_name = ["${var.project_name}-${var.backend_services_names[0]}-${var.environment}", "${var.project_name}-${var.backend_services_names[1]}-${var.environment}"]
