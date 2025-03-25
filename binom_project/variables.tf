@@ -63,46 +63,28 @@ variable "cloud_storage_name" {
   default = "gcs"
 }
 
-# object module
+# https_trigger_cloud_run module
 
-variable "bucket_object_names" {
-  type = list(string)
-  default = ["bs-result" ,"bs-summary","automation"]
-}
-
-variable "bucket_object_sources" {
-  type = list(string)
-}
-
-# cloud_function modules
-
-variable "runtime" {
-  type = string
-  default = "python39"
-}
-
-# https_trigger_cloud_function module
-
-variable "cloud_function_https_names" {
+variable "https_cloud_run_names" {
   type = list(string)
   default = [ "get-result","get-summary" ]
 }
 
-variable "https_function_entry_points" {
+variable "https_container_images" {
   type = list(string)
-  default = [ "getResult" ,"getResult" ]
+  default = [ "us-docker.pkg.dev/cloudrun/container/hello", "us-docker.pkg.dev/cloudrun/container/hello" ]
 }
 
-# storage_trigger_cloud_function
+# module eventarc trigger
 
-variable "cloud_function_automation_name" {
+variable "cloud_run_automation_name" {
   type = string
   default = "automation"
 }
 
-variable "automation_function_entry_point" {
+variable "automation_container_image" {
   type = string
-  default = "hello_gcs"
+  default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
 
 # module load balancer
