@@ -21,3 +21,11 @@ variable "trigger_name" {
 variable "cloud_storage_name" {
   type = string
 }
+
+variable "connector_name" {
+  type = string
+}
+
+variable "host_project_id" {
+  type = string
+}

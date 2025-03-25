@@ -60,6 +60,8 @@ module "cloud_run" {
   location = var.region
   container_image = var.https_container_images[count.index]
   count = length(var.https_cloud_run_names)
+  connector_name = var.connector_name
+  host_project_id = var.host_project_id
   depends_on = [ module.network ]
 }
 
@@ -71,6 +73,8 @@ module "eventarc_trigger" {
   container_image = var.automation_container_image
   trigger_name = "${var.project_name}-trigger-${var.environment}"
   cloud_storage_name = module.cloud_storage.bucket_name
+  connector_name = var.connector_name
+  host_project_id = var.host_project_id
 }
 
 module "load_balancer" {

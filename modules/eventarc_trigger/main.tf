@@ -42,6 +42,8 @@ module "cloud_run" {
   location = var.location
   container_image = var.container_image
   service_account = google_service_account.eventarc_sa.email
+  connector_name = var.connector_name
+  host_project_id = var.host_project_id
 }
 
 module "eventarc" {

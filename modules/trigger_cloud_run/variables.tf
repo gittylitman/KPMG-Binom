@@ -13,3 +13,11 @@ variable "container_image" {
 variable "service_account" {
   type = string
 }
+
+variable "connector_name" {
+  type = string
+}
+
+variable "host_project_id" {
+  type = string
+}
