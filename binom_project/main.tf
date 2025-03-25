@@ -49,9 +49,8 @@ module "firestore" {
 
 module "cloud_storages" {
   source = "../modules/cloud_storage"
-  name = "${var.project_name}-${var.cloud_storage_names[count.index]}-${var.environment}"
+  name = "${var.project_name}-${var.cloud_storage_name}-${var.environment}"
   location = var.region
-  count = length(var.cloud_storage_names)
   depends_on = [ module.network ]
 }
 

@@ -58,9 +58,9 @@ variable "tables_name" {
 
 # cloud storages module
 
-variable "cloud_storage_names" {
-  type = list(string)
-  default = [ "gcs-source", "gcs" ]
+variable "cloud_storage_name" {
+  type = string
+  default = "gcs"
 }
 
 # object module
