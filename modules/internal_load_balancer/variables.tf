@@ -2,6 +2,14 @@ variable "region" {
   type = string
 }
 
+variable "certificate_secret_name" {
+  type = string
+}
+
+variable "private_key_secret_name" {
+  type = string
+}
+
 variable "cloud_run_names" {
   type = list(string)
 }

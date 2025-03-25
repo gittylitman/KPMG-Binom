@@ -91,6 +91,14 @@ variable "automation_container_image" {
 
 # module load balancer
 
+variable "certificate_secret_name" {
+  type = string
+}
+
+variable "private_key_secret_name" {
+  type = string
+}
+
 variable "neg_names" {
   type = list(string)
   default = ["neg-getresult", "neg-getsummary"]

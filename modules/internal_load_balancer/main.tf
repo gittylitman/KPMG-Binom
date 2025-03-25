@@ -8,6 +8,16 @@ resource "time_sleep" "wait_60_seconds" {
   depends_on = [ google_project_service.compute ]
 }
 
+data "google_secret_manager_regional_secret_version" "cert" {
+  secret   = var.certificate_secret_name
+  location = var.region
+}
+
+data "google_secret_manager_regional_secret_version" "pk" {
+  secret   = var.private_key_secret_name
+  location = var.region
+}
+
 resource "google_compute_region_network_endpoint_group" "serverless_neg" {
   name                  = var.neg_name[count.index]
   region                = var.region
@@ -27,7 +37,6 @@ resource "google_compute_region_backend_service" "backend_service" {
   backend {
     group = google_compute_region_network_endpoint_group.serverless_neg[count.index].id
   }
-
   count = length(var.backend_service_name)
 }
 
@@ -59,8 +68,14 @@ resource "google_compute_region_url_map" "url_map" {
   }
 }
 
-data "google_compute_region_ssl_certificate" "ca_cert" {
+resource "google_compute_region_ssl_certificate" "certificate" {
+  region   = var.region
   name        = var.cert_name
+  private_key = data.google_secret_manager_regional_secret_version.pk.secret_data
+  certificate = data.google_secret_manager_regional_secret_version.cert.secret_data
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 data "google_compute_subnetwork" "proxy_subnet" {
@@ -73,7 +88,7 @@ resource "google_compute_region_target_https_proxy" "https_proxy" {
   name            = var.https_proxy_name
   region          = var.region
   url_map         = google_compute_region_url_map.url_map.id
-  ssl_certificates = [data.google_compute_region_ssl_certificate.ca_cert.id]
+  ssl_certificates = [google_compute_region_ssl_certificate.certificate.id]
 }
 
 resource "google_compute_forwarding_rule" "https_forwarding_rule" {
