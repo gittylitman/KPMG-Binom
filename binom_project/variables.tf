@@ -118,8 +118,3 @@ variable "backend_services_names" {
   type = list(string)
   default = ["back-getresult", "back-getsummary"]
 }
-
-variable "certificate_name" {
-  type = string
-  default = "certificate-binom"
-}
