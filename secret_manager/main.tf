@@ -10,6 +10,7 @@ provider "google" {
 }
 
 resource "google_secret_manager_regional_secret" "secret" {
-  secret_id = var.secret_id
+  secret_id = var.secret_id[count.index]
   location = var.location
+  count = length(var.secret_id)
 }

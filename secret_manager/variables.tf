@@ -3,7 +3,7 @@ variable "project_id" {
 }
 
 variable "secret_id" {
-  type = string
+  type = list(string)
 }
 
 variable "location" {
