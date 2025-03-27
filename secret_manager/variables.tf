@@ -15,7 +15,7 @@ variable "environment" {
 
 variable "secret_id" {
   type = list(string)
-  default = [ "certificate", "private_key" ]
+  default = [ "certificate", "private-key" ]
 }
 
 variable "location" {
