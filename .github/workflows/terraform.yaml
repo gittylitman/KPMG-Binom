@@ -21,7 +21,7 @@ jobs:
       - name: 🏗️ Terraform 
         id: init
         run: |
-          cd binom_project
+          cd secret_manager
           terraform init
           terraform plan
           terraform apply -auto-approve
