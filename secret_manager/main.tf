@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "secret-manager-binom"
+    bucket  = "<name of bucket>"
     prefix  = "state"
   }
 }

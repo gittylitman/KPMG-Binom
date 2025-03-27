@@ -1,6 +1,6 @@
 variable "project_id" {
   type = string
-  default = "binom-project"
+  default = "gantt-service-project"
 }
 
 variable "project_name" {
