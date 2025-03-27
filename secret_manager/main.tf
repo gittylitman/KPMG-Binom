@@ -5,6 +5,11 @@ terraform {
   }
 }
 
+resource "google_project_service" "secretmanager" {
+  service            = "secretmanager.googleapis.com"
+  disable_on_destroy = false
+}
+
 provider "google" {
   project = var.project_id
 }
