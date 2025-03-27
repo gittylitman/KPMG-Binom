@@ -59,9 +59,9 @@ module "cloud_run" {
   cloud_run_name = var.https_cloud_run_names[count.index]
   location = var.region
   container_image = var.https_container_images[count.index]
-  count = length(var.https_cloud_run_names)
   connector_name = var.connector_name
   host_project_id = var.host_project_id
+  count = length(var.https_cloud_run_names)
   depends_on = [ module.network ]
 }
 
