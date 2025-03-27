@@ -1,6 +1,5 @@
 variable "project_id" {
   type = string
-  default = "gantt-service-project"
 }
 
 variable "project_name" {
