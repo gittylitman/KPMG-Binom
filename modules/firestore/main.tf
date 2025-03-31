@@ -1,3 +1,8 @@
+resource "google_project_service" "cloudresourcemanager" {
+  service            = "cloudresourcemanager.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_project_service" "firestore" {
   service = "firestore.googleapis.com"
   disable_on_destroy = false 
@@ -9,7 +14,10 @@ resource "google_firestore_database" "firestore_database" {
   type                              = "FIRESTORE_NATIVE"
   app_engine_integration_mode       = "DISABLED"
   deletion_policy                   = "DELETE"
-  depends_on = [google_project_service.firestore]
+  depends_on = [
+    google_project_service.cloudresourcemanager,
+    google_project_service.firestore
+  ]
 }
 
 resource "google_firestore_document" "documents"{

@@ -10,11 +10,11 @@ variable "vm_name" {
   type = string
 }
 
-variable "network_name" {
+variable "network_id" {
   type = string
 }
 
-variable "subnetwork_name" {
+variable "subnetwork_id" {
   type = string
 }
 

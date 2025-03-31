@@ -1,6 +1,16 @@
+resource "google_project_service" "compute" {
+  service            = "compute.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_project_service" "iam" {
   service            = "iam.googleapis.com"
   disable_on_destroy = false
+}
+
+resource "time_sleep" "wait_60_seconds" {
+  create_duration = "60s"
+  depends_on = [ google_project_service.compute ]
 }
 
 resource "google_service_account" "vm_instance_service_account" {
@@ -19,11 +29,12 @@ resource "google_compute_instance" "windows_vm"{
       }
     }
     network_interface {
-      network = var.network_name
-      subnetwork = var.subnetwork_name
+      network = var.network_id
+      subnetwork = var.subnetwork_id
     }
     service_account {
       email = google_service_account.vm_instance_service_account.email
       scopes = ["cloud-platform"]
     }
+     depends_on = [ time_sleep.wait_60_seconds ]
 }
