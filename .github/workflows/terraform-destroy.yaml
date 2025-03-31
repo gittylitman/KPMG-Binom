@@ -21,6 +21,6 @@ jobs:
       - name: 🏗️ Terraform 
         id: init
         run: |
-          cd secret_manager
+          cd binom_project
           terraform init
           terraform destroy -auto-approve
