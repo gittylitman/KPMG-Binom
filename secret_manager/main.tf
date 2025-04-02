@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "secret-manager-binom"
+    bucket  = "<bucket name>"
     prefix  = "state"
   }
 }
@@ -21,7 +21,7 @@ resource "google_project_service" "secretmanager" {
 }
 
 resource "google_secret_manager_regional_secret" "secret" {
-  secret_id = var.secret_id[count.index]
+  secret_id = "${var.project_name}-${var.secret_id[count.index]}-${var.environment}"
   location = var.location
   count = length(var.secret_id)
   depends_on = [ google_project_service.secretmanager ]
